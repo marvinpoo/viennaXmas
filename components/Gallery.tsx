@@ -18,17 +18,17 @@ export default function Gallery() {
   }, [])
 
   return (
-    <div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div className="p-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {images.map((image, index) => (
-          <div key={index} className="relative w-full h-48 cursor-pointer">
+          <div key={index} className="cursor-pointer hover:opacity-80 transition duration-200">
             <Image
               src={`/thumbnails/${image.name}-medium.webp`}
               alt={image.alt}
-              layout="fill"
-              objectFit="cover"
+              width={200}
+              height={150}
               onClick={() => setSelectedImage(index)}
-              className="rounded-lg"
+              className="rounded-lg object-cover w-full h-auto border border-gray-200 shadow-sm"
             />
           </div>
         ))}
