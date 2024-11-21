@@ -4,10 +4,14 @@ import sharp from 'sharp'
 
 const photosDir = path.join(process.cwd(), 'public', 'photos')
 const thumbnailsDir = path.join(process.cwd(), 'public', 'thumbnails')
+const dataDir = path.join(process.cwd(), 'public', 'data')
 
-// Ensure thumbnails directory exists
+// Ensure directories exist
 if (!fs.existsSync(thumbnailsDir)) {
   fs.mkdirSync(thumbnailsDir)
+}
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir)
 }
 
 const generateThumbnail = async (file) => {
@@ -42,11 +46,23 @@ const generateThumbnail = async (file) => {
 
 const processAllImages = async () => {
   const files = fs.readdirSync(photosDir)
+  const imageData = []
+
   for (const file of files) {
     if (file.match(/\.(jpg|jpeg|png|gif)$/i)) {
       await generateThumbnail(path.join(photosDir, file))
+      const name = path.basename(file, path.extname(file))
+      imageData.push({
+        name,
+        src: `/photos/${file}`,
+        alt: `Image ${name}`,
+      })
     }
   }
+
+  // Write image data to a JSON file
+  fs.writeFileSync(path.join(dataDir, 'images.json'), JSON.stringify(imageData, null, 2))
+  console.log('Generated images.json')
 }
 
 processAllImages()
