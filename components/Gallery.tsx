@@ -19,15 +19,14 @@ export default function Gallery() {
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {images.map((image, index) => (
-          <div key={index} className="aspect-w-1 aspect-h-1 cursor-pointer">
+          <div key={index} className="relative w-full h-48 cursor-pointer">
             <Image
               src={`/thumbnails/${image.name}-medium.webp`}
               alt={image.alt}
               layout="fill"
               objectFit="cover"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               onClick={() => setSelectedImage(index)}
               className="rounded-lg"
             />
