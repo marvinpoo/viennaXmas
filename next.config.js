@@ -6,6 +6,7 @@ const nextConfig = {
   },
   assetPrefix: process.env.NODE_ENV === 'production' ? '/viennaXmas' : '',
   basePath: process.env.NODE_ENV === 'production' ? '/viennaXmas' : '',
+  trailingSlash: true,
 }
 
 module.exports = nextConfig
